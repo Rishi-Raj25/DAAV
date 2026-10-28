@@ -253,9 +253,9 @@ async function checkWebsite(raw: string, submitted: { name: string; description:
 }
 
 export async function POST(request: Request) {
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-  const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  const supabaseUrl = process.env.SUPABASE_URL_FIRST;
+  const anonKey = process.env.SUPABASE_PUBLIC_KEY;
+  const serviceRoleKey = process.env.SUPABASE_SECRET_KEY1;
   if (!supabaseUrl || !anonKey || !serviceRoleKey) {
     return Response.json({ outcome: "configuration_error", message: "Registration checks are not configured yet. Please try again later." }, { status: 503 });
   }
