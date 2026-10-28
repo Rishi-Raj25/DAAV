@@ -32,7 +32,7 @@ export default function LoginPage() {
       } else {
         const { error: authError } = await supabase.auth.signInWithPassword({ email: email.trim(), password });
         if (authError) throw authError;
-        router.push(searchParams.get("next") || "/submit");
+        router.push("/submit");
         router.refresh();
       }
     } catch (caught) {
