@@ -6,7 +6,7 @@ import { URL } from "node:url";
 import { z } from "zod";
 
 export const runtime = "nodejs";
-export const maxDuration = 15;
+export const maxDuration = 10;
 
 const registrationSchema = z.object({
   name: z.string().trim().min(2).max(100),
