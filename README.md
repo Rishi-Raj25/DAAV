@@ -4,7 +4,7 @@
 
 DAAV is a lean MVP for discovering products and businesses in India through daily and all-time paid-rank leaderboards. Higher eligible, confirmed paid amounts rank higher; verification establishes eligibility and does not affect rank.
 
-> **Development status:** quick-registration MVP in progress. The public leaderboard still uses demo listings. Registration runs a server-side HTTPS website screen and compares visible page text with the submitted name, description and sector. This is a heuristic anti-abuse check, not legal company verification or a guarantee that a business is genuine. Supabase and the server-only service-role environment variable must be configured. Payments are not implemented; do not accept real payments.
+> **Development status:** quick-registration MVP in progress. The public leaderboard still uses demo listings. Registration saves the submitted product details directly after basic form validation. This is a heuristic anti-abuse check, not legal company verification or a guarantee that a business is genuine. Supabase and the server-only service-role environment variable must be configured. Payments are not implemented; do not accept real payments.
 
 ## MVP scope
 
@@ -12,8 +12,8 @@ DAAV is a lean MVP for discovering products and businesses in India through dail
 - Daily leaderboard based on Asia/Kolkata calendar day and cumulative all-time board
 - Four-field quick registration: name, website, description, and sector
 - Supabase Auth sign-up/sign-in and email confirmation callback (configuration required)
-- Server-side HTTPS website screening with public-IP checks, pinned DNS lookup, bounded response size/time, redirect revalidation, parked/placeholder detection, and content matching
-- Unreachable websites can retry; suspicious placeholders are rejected; ambiguous websites are not registered automatically
+- Direct product registration with basic form validation and HTTPS website URL validation
+- Website content is not fetched or verified during registration
 - Responsive public demo leaderboard with search, category filtering, hover feedback, entrance motion and reduced-motion support
 - Razorpay payments, protected admin review, payment reconciliation and live rankings are not implemented yet; never mark a company or payment verified based on client-side state
 
@@ -32,7 +32,7 @@ DAAV is a lean MVP for discovering products and businesses in India through dail
 4. Start development: `npm run dev`
 5. Open http://localhost:3000
 
-The homepage currently uses visibly labelled demo data. Quick registration needs Supabase configured in Vercel, the SQL schema applied, and `SUPABASE_SERVICE_ROLE_KEY` configured as a server-only environment variable. The API authenticates the user, screens the supplied HTTPS site, and creates an approved listing only when the basic content checks pass. Timeouts are retryable; unclear matches do not create a listing. This automated screen is not proof of legal incorporation. There is no live ranking or payment flow yet.
+The homepage currently uses visibly labelled demo data. Quick registration needs Supabase configured in Vercel, the SQL schema applied, and `SUPABASE_SERVICE_ROLE_KEY` configured as a server-only environment variable. The API authenticates the user, validates the supplied HTTPS URL format, and creates the listing without website-content verification. There is no live ranking or payment flow yet.
 
 ## Environment variables
 
