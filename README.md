@@ -73,3 +73,15 @@ Use official registration records when a business claims registration and the re
 ## License
 
 No license has been granted yet. All rights reserved by the repository owner unless a license is added.
+
+
+## Deploy to Vercel
+
+1. Open the Vercel import flow: https://vercel.com/new
+2. Import `Rishi-Raj25/DAAV` from GitHub.
+3. Keep the detected framework as **Next.js** and the root directory as `./`.
+4. For the first visual preview, no environment variables are required; the page uses clearly labelled demo data.
+5. Select **Deploy**. Vercel will build the `main` branch and provide a deployment URL.
+6. Later, add environment variables in **Project → Settings → Environment Variables** when Supabase and Razorpay server integrations are implemented. Redeploy after changing environment variables.
+
+**Important:** this deployment is only a UI preview. It does not yet provide real authentication, business verification, or live payments. Do not accept real customer payments until server-side payment verification, transactional ranking logic, admin access controls, refunds/reconciliation, and legal disclosures are implemented and tested.
