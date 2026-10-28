@@ -23,7 +23,7 @@ export default function SubmitProductPage() {
   const [result, setResult] = useState<ResultState | null>(null);
 
   useEffect(() => {
-    if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+    if (!process.env.SUPABASE_URL_FIRST || !process.env.SUPABASE_PUBLIC_KEY) {
       setError("Registration isn't configured yet. Please try again later.");
       setReady(true);
       return;
