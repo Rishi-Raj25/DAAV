@@ -83,7 +83,7 @@ export default function SubmitProductPage() {
               <input autoFocus required minLength={2} maxLength={100} value={name} onChange={e=>setName(e.target.value)} placeholder="e.g. Neem AI" className="mt-2 min-h-12 w-full rounded-lg border border-[#ded5c8] bg-white px-3 text-base outline-none focus:border-[#c96e31]"/>
             </label>
             {error && <p role="alert" className="rounded-lg border border-red-200 bg-red-50 p-3 text-sm leading-5 text-red-700">{error}</p>}
-            <button disabled={loading} className="primary-button w-full disabled:cursor-wait disabled:opacity-60">{loading ? <LoaderCircle size={16} className="animate-spin"/> : <Sparkles size={16}/ >}{loading ? "Creating your DAAV…" : "Create my DAAV"}{!loading && <ArrowRight size={16}/>}</button>
+            <button disabled={loading} className="primary-button w-full disabled:cursor-wait disabled:opacity-60">{loading ? <LoaderCircle size={16} className="animate-spin"/> : <Sparkles size={16}/>}{loading ? "Creating your DAAV…" : "Create my DAAV"}{!loading && <ArrowRight size={16}/>}</button>
           </form>}
         </>}
       </div>
