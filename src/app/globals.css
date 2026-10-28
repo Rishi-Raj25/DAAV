@@ -1,0 +1,131 @@
+@import "tailwindcss";
+
+:root {
+  --paper: #f7f4ee;
+  --ink: #24231f;
+  --muted: #77736b;
+  --line: #e8e1d5;
+  --saffron: #c96e31;
+  --saffron-dark: #a94f1f;
+  --card: #fffdf8;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: Arial, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+button, a { -webkit-tap-highlight-color: transparent; }
+a { color: inherit; text-decoration: none; }
+::selection { background: #f0d5bc; color: #24231f; }
+
+.container-daav {
+  width: min(1120px, calc(100% - 40px));
+  margin-inline: auto;
+}
+
+.masthead {
+  border-bottom: 1px solid var(--line);
+  background: rgba(247, 244, 238, 0.94);
+}
+
+.brand-mark {
+  display: grid;
+  width: 36px;
+  height: 36px;
+  place-items: center;
+  border-radius: 10px;
+  background: var(--ink);
+  color: #f5b36b;
+  font-size: 19px;
+  font-weight: 800;
+}
+
+.pill {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 7px 12px;
+  color: #5d574f;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.primary-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  border: 0;
+  border-radius: 9px;
+  padding: 0 16px;
+  background: var(--saffron);
+  color: white;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 140ms ease, transform 140ms ease;
+}
+.primary-button:hover { background: var(--saffron-dark); transform: translateY(-1px); }
+
+.secondary-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  border: 1px solid #d8cfc1;
+  border-radius: 9px;
+  padding: 0 16px;
+  background: transparent;
+  font-size: 14px;
+  font-weight: 650;
+}
+
+.panel {
+  border: 1px solid var(--line);
+  border-radius: 15px;
+  background: var(--card);
+}
+
+.rank-row + .rank-row { border-top: 1px solid #eee8de; }
+
+.rank-number {
+  display: grid;
+  width: 32px;
+  height: 32px;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 9px;
+  background: #f1ece3;
+  color: #686157;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.rank-number.first {
+  background: #f7e5ce;
+  color: #9d541e;
+}
+
+.mini-label {
+  color: #8b8377;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+    animation-duration: .01ms !important;
+  }
+}
