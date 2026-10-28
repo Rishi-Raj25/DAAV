@@ -4,16 +4,17 @@
 
 DAAV is a lean MVP for discovering products and businesses in India through daily and all-time paid-rank leaderboards. Higher eligible, confirmed paid amounts rank higher; verification establishes eligibility and does not affect rank.
 
-> **Development status:** starter scaffold. Do not use for live payments or real customer data until the production checklist below is completed and reviewed.
+> **Development status:** interactive MVP in progress. The public board still uses demo listings. Supabase sign-up/sign-in and authenticated product submission are wired in code, but they only work after Supabase is configured in Vercel and the SQL schema is applied. Razorpay/live payments are not implemented. Do not accept real payments.
 
 ## MVP scope
 
 - Indian-inspired, responsive public leaderboard
 - Daily leaderboard based on Asia/Kolkata calendar day and cumulative all-time board
 - Product/company submission with manual verification status
-- Supabase Auth and PostgreSQL (configuration required)
-- Razorpay payment integration scaffold (credentials, server-side order creation and webhooks required)
-- Admin review and payment reconciliation are planned; never mark a company or payment verified based on client-side state
+- Supabase Auth sign-up/sign-in and email confirmation callback (configuration required)
+- Authenticated product submission into a pending-review queue (configuration and SQL schema required)
+- Responsive public demo leaderboard with search, category filtering, hover feedback, entrance motion and reduced-motion support
+- Razorpay payments, protected admin review, payment reconciliation and live rankings are not implemented yet; never mark a company or payment verified based on client-side state
 
 ## Stack
 
@@ -30,7 +31,7 @@ DAAV is a lean MVP for discovering products and businesses in India through dail
 4. Start development: `npm run dev`
 5. Open http://localhost:3000
 
-The homepage currently uses visibly labelled demo data. Authentication, persisted listings, real rankings and payments require configured server services.
+The homepage currently uses visibly labelled demo data. Sign-up/sign-in and product submission need a Supabase project, the SQL schema applied, and the public environment variables configured in Vercel. The product submission route writes listings as pending; there is no admin approval screen or live ranking yet.
 
 ## Environment variables
 
@@ -52,8 +53,9 @@ Use official registration records when a business claims registration and the re
 
 ## Before production
 
-- [ ] Configure Supabase project and apply a reviewed schema with Row Level Security
-- [ ] Implement signup/login flows and verify sessions on server routes
+- [ ] Configure Supabase project, add its URL and anon/publishable key to Vercel, and apply a reviewed schema with Row Level Security
+- [x] Add client sign-up/sign-in and email confirmation callback (requires Supabase configuration)
+- [ ] Review server-side session handling and authorization before launch
 - [ ] Add protected admin roles; do not rely on hidden UI buttons for authorization
 - [ ] Implement company review queue and audit trail
 - [ ] Add Razorpay order creation, server signature verification, webhook signature verification and idempotency
