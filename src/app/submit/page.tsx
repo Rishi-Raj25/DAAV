@@ -62,7 +62,7 @@ export default function SubmitProductPage() {
               <span className="mt-1 block text-xs font-normal text-stone-500">Enter your public website. We only check the URL format, not the website content.</span>
             </label>
             {error && <p role="alert" className="rounded-lg border border-red-200 bg-red-50 p-3 text-sm leading-5 text-red-700">{error}</p>}
-            <button disabled={loading} className="primary-button w-full disabled:cursor-wait disabled:opacity-60">{loading ? <LoaderCircle size={16} className="animate-spin"/> : <Sparkles size={16}/ >}{loading ? "Creating your DAAV…" : "Create my DAAV"}{!loading && <ArrowRight size={16}/>}</button>
+            <button disabled={loading} className="primary-button w-full disabled:cursor-wait disabled:opacity-60">{loading ? <LoaderCircle size={16} className="animate-spin"/> : <Sparkles size={16}/>}{loading ? "Creating your DAAV…" : "Create my DAAV"}{!loading && <ArrowRight size={16}/>}</button>
           </form>
         </>}
       </div>
