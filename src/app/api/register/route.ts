@@ -1,6 +1,7 @@
 import { createClient } from "@supabase/supabase-js";
 import { lookup } from "node:dns/promises";
 import https from "node:https";
+import type { IncomingHttpHeaders } from "node:http";
 import { isIP } from "node:net";
 import { URL } from "node:url";
 import { z } from "zod";
@@ -77,7 +78,7 @@ async function resolvePublicHost(hostname: string): Promise<string> {
   return ipv4.address;
 }
 
-function requestPage(input: URL, pinnedIp: string): Promise<{ status: number; headers: https.IncomingHttpHeaders; body: string }> {
+function requestPage(input: URL, pinnedIp: string): Promise<{ status: number; headers: IncomingHttpHeaders; body: string }> {
   return new Promise((resolve, reject) => {
     const request = https.request({
       protocol: "https:",
