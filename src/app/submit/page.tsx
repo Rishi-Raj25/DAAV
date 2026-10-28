@@ -56,9 +56,9 @@ export default function SubmitProductPage() {
         setError(message);
         return;
       }
-      setResult({ kind: "success", message: payload.message || "Your website passed the check and your registration is complete." });
+      setResult({ kind: "success", message: payload.message || "Your product has been registered on DAAV." });
     } catch {
-      setResult({ kind: "retry", message: "We couldn't reach DAAV's registration service. Your details haven't been registered; please retry." });
+      setError("We couldn't reach DAAV's registration service. Your details may not have been registered; please try again.");
     } finally {
       setLoading(false);
     }
@@ -91,9 +91,9 @@ export default function SubmitProductPage() {
             <label className="block text-sm font-semibold">What do you do?<span className="ml-2 font-normal text-stone-400">20–500 characters</span><textarea required minLength={20} maxLength={500} rows={3} value={description} onChange={e=>setDescription(e.target.value)} placeholder="Describe your product or service in a couple of sentences…" className="mt-2 w-full resize-y rounded-lg border border-[#ded5c8] bg-white p-3 text-sm leading-6 outline-none focus:border-[#c96e31]"/><span className="mt-1 block text-right text-xs font-normal text-stone-400">{description.length}/500</span></label>
             <label className="block text-sm font-semibold">Sector<select value={sector} onChange={e=>setSector(e.target.value)} className="mt-2 min-h-11 w-full rounded-lg border border-[#ded5c8] bg-white px-3 text-sm outline-none focus:border-[#c96e31]">{sectors.map(item=><option key={item}>{item}</option>)}</select></label>
             {error && <p role="alert" className="rounded-lg border border-red-200 bg-red-50 p-3 text-sm leading-5 text-red-700">{error}</p>}
-            {result && <div role="status" className={`rounded-lg border p-3 text-sm leading-5 ${result.kind === "retry" ? "border-amber-200 bg-amber-50 text-amber-900" : "border-orange-200 bg-orange-50 text-orange-900"}`}><p className="font-bold">{result.kind === "retry" ? "Temporary website issue" : "We couldn't confirm the website automatically"}</p><p className="mt-1">{result.message}</p>{result.kind === "review" && <p className="mt-2 text-xs">Nothing has been registered yet. Check the URL or contact DAAV for a quick review.</p>}</div>}
+            {result && <div role="status" className="rounded-lg border border-orange-200 bg-orange-50 p-3 text-sm leading-5 text-orange-900"><p className="font-bold">Registration complete</p><p className="mt-1">{result.message}</p></div>}
             <div className="rounded-lg bg-[#f7f4ee] p-3 text-xs leading-5 text-stone-600"><Globe size={15} className="mr-1 inline text-[#c96e31]"/> Your website is saved with your listing. DAAV does not verify website content during registration.</div>
-            <button disabled={loading} className="primary-button w-full disabled:cursor-wait disabled:opacity-60">{loading ? <LoaderCircle size={16} className="animate-spin"/> : <ShieldCheck size={16}/>}{loading ? "Checking your website…" : "Register product"}{!loading && <ArrowRight size={16}/>}</button>
+            <button disabled={loading} className="primary-button w-full disabled:cursor-wait disabled:opacity-60">{loading ? <LoaderCircle size={16} className="animate-spin"/> : <ShieldCheck size={16}/>}{loading ? "Registering product…" : "Register product"}{!loading && <ArrowRight size={16}/>}</button>
           </form>}
         </>}
       </div>
