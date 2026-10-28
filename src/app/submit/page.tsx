@@ -41,18 +41,18 @@ export default function SubmitProductPage() {
       <div className="panel mt-8 p-5 sm:p-8">
         <div className="flex items-center gap-3">
           <div className="brand-mark">द</div>
-          <div><p className="mini-label">Create your DAAV</p><p className="mt-1 text-xs text-stone-500">Two details. You're in.</p></div>
+          <div><p className="mini-label">Create your DAAV</p><p className="mt-1 text-xs text-stone-500">Two details. You&apos;re in.</p></div>
         </div>
         {result ? <div className="mt-7">
           <CheckCircle2 size={30} className="text-emerald-700"/>
-          <h1 className="mt-4 text-3xl font-black tracking-[-0.06em] sm:text-4xl">You're on the board.</h1>
-          <p className="mt-3 text-sm leading-6 text-stone-600"><span className="font-semibold text-stone-900">{result.name}</span> has a DAAV. You're ready to go.</p>
+          <h1 className="mt-4 text-3xl font-black tracking-[-0.06em] sm:text-4xl">You&apos;re on the board.</h1>
+          <p className="mt-3 text-sm leading-6 text-stone-600"><span className="font-semibold text-stone-900">{result.name}</span> has a DAAV. You&apos;re ready to go.</p>
           <p className="mt-2 break-all text-sm text-stone-600"><Globe size={15} className="mr-1 inline"/>{result.website}</p>
           <div className="mt-6 rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-sm leading-6 text-emerald-900">{result.message}<p className="mt-1 text-xs">You can add more details later. Payments and paid ranking are not enabled yet.</p></div>
           <Link href="/" className="primary-button mt-5 w-full">Explore DAAV <ArrowRight size={16}/></Link>
         </div> : <>
           <h1 className="mt-7 text-3xl font-black tracking-[-0.06em] sm:text-4xl">Your company. Your DAAV.</h1>
-          <p className="mt-3 text-sm leading-6 text-stone-600">Enter your company name and website URL. That's it. No sign-up, login, documents, or verification steps.</p>
+          <p className="mt-3 text-sm leading-6 text-stone-600">Enter your company name and website URL. That&apos;s it. No sign-up, login, documents, or verification steps.</p>
           <form onSubmit={handleSubmit} className="mt-7 space-y-5">
             <label className="block text-sm font-semibold">Company or product name
               <input autoFocus required minLength={2} maxLength={100} value={name} onChange={e=>setName(e.target.value)} placeholder="e.g. KARMA AI" className="mt-2 min-h-12 w-full rounded-lg border border-[#ded5c8] bg-white px-3 text-base outline-none focus:border-[#c96e31]"/>
