@@ -76,8 +76,8 @@ export default function SubmitProductPage() {
           <div className="brand-mark">द</div>
           <div><p className="mini-label">DAAV Quick Registration</p><p className="mt-1 text-xs text-stone-500">Four fields. Usually under two minutes.</p></div>
         </div>
-        <h1 className="mt-6 text-3xl font-black tracking-[-0.06em] sm:text-4xl">{result?.kind === "success" ? "You're on the board." : "Put your product on the map."}</h1>
-        <p className="mt-2 text-sm leading-6 text-stone-600">Tell us what you're building. DAAV checks the website you provide for signs of an active product or business before completing registration. No registration documents required.</p>
+        <h1 className="mt-6 text-3xl font-black tracking-[-0.06em] sm:text-4xl">{result?.kind === "success" ? "You&apos;re on the board." : "Put your product on the map."}</h1>
+        <p className="mt-2 text-sm leading-6 text-stone-600">Tell us what you&apos;re building. DAAV checks the website you provide for signs of an active product or business before completing registration. No registration documents required.</p>
 
         {result?.kind === "success" ? <div className="mt-6 rounded-xl border border-emerald-200 bg-emerald-50 p-5">
           <CheckCircle2 size={25} className="text-emerald-700"/>
