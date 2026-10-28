@@ -2,13 +2,12 @@
 
 import { FormEvent, useState } from "react";
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { ArrowLeft, ArrowRight, LoaderCircle, ShieldCheck } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 
 export default function LoginPage() {
   const router = useRouter();
-  const searchParams = useSearchParams();
   const [mode, setMode] = useState<"signin" | "signup">("signup");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -28,7 +27,7 @@ export default function LoginPage() {
           options: { emailRedirectTo: `${window.location.origin}/auth/callback?next=/submit` },
         });
         if (authError) throw authError;
-        if (data.session) router.push(searchParams.get("next") || "/submit");
+        if (data.session) router.push("/submit");
         else setMessage("Account created! Check your email to confirm your address, then sign in to continue.");
       } else {
         const { error: authError } = await supabase.auth.signInWithPassword({ email: email.trim(), password });
