@@ -155,7 +155,7 @@ function decodePage(html: string) {
   return { title, text };
 }
 
-async function checkWebsite(raw: string): Promise<WebsiteResult> {
+async function checkWebsite(raw: string, submitted: { name: string; description: string; sector: string }): Promise<WebsiteResult> {
   let current: URL;
   try {
     current = new URL(/^https?:\/\//i.test(raw) ? raw : `https://${raw}`);
@@ -231,7 +231,22 @@ async function checkWebsite(raw: string): Promise<WebsiteResult> {
     if (hasGenericHostSignals || !hasBusinessSignals) {
       return { outcome: "review", reason: "The page doesn't clearly establish an active product or business. It needs a quick review." };
     }
-    return { outcome: "pass", url: current.origin, title: title.slice(0, 180), reason: "The HTTPS website is reachable and contains readable business/product information." };
+
+    // Compare the submitted details with visible website text. This is a
+    // lightweight heuristic, not an AI/legal identity guarantee; ambiguous
+    // matches go to review rather than being marked approved.
+    const normalizedPage = combined.normalize("NFKD").replace(/[\\u0300-\\u036f]/g, "").replace(/[^a-z0-9]+/g, " ");
+    const domainStem = current.hostname.replace(/^www\\./i, "").split(".")[0].toLowerCase();
+    const nameTokens = submitted.name.toLowerCase().normalize("NFKD").replace(/[\\u0300-\\u036f]/g, "").split(/[^a-z0-9]+/).filter(token => token.length >= 3 && !["private", "limited", "company", "technologies", "technology", "solutions", "services", "official"].includes(token));
+    const nameMatches = nameTokens.some(token => normalizedPage.includes(token) || domainStem.includes(token));
+    const descriptionTokens = [...new Set(submitted.description.toLowerCase().normalize("NFKD").replace(/[\\u0300-\\u036f]/g, "").split(/[^a-z0-9]+/).filter(token => token.length >= 5 && !["their", "there", "which", "where", "about", "built", "helps", "provides", "platform", "company", "business", "product", "service", "services", "using", "users", "simple", "based"].includes(token)))];
+    const descriptionMatches = descriptionTokens.filter(token => normalizedPage.includes(token)).length;
+    const sectorTokens = submitted.sector.toLowerCase().split(/[^a-z0-9]+/).filter(token => token.length >= 4 && !["other"].includes(token));
+    const sectorMatches = sectorTokens.some(token => normalizedPage.includes(token));
+    if (!nameMatches && !(descriptionMatches >= 2 && sectorMatches)) {
+      return { outcome: "review", reason: "The website is reachable, but we couldn't confidently match it to the submitted business name and description." };
+    }
+    return { outcome: "pass", url: current.origin, title: title.slice(0, 180), reason: "The HTTPS website is reachable and its visible content matches the submitted business details." };
   }
   return { outcome: "review", reason: "The website could not be checked automatically." };
 }
@@ -258,7 +273,7 @@ export async function POST(request: Request) {
   const parsed = registrationSchema.safeParse(rawBody);
   if (!parsed.success) return Response.json({ outcome: "invalid", message: "Enter a name, website, description (20–500 characters), and sector." }, { status: 400 });
 
-  const result = await checkWebsite(parsed.data.website);
+  const result = await checkWebsite(parsed.data.website, parsed.data);
   if (result.outcome !== "pass") {
     const status = result.outcome === "retry" ? 503 : result.outcome === "review" ? 422 : 400;
     return Response.json({ outcome: result.outcome, message: result.reason }, { status });
