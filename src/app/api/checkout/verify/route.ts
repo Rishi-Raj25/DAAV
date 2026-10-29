@@ -4,7 +4,7 @@ import {z} from "zod";
 export const runtime="nodejs";
 const schema=z.object({razorpay_order_id:z.string().min(1),razorpay_payment_id:z.string().min(1),razorpay_signature:z.string().min(1)}).strict();
 export async function POST(request:Request){
- const url=process.env.SUPABASE_URL_FIRST,dbKey=process.env.SUPABASE_SECRET_KEY1,keyId=process.env.RAZORPAY_KEY_ID,secret=process.env.RAZORPAY_KEY_SECRET;
+ const url=process.env.SUPABASE_URL_FIRST,dbKey=process.env.SUPABASE_SECRET_KEY1,keyId=process.env.RAZORPAY_TEST_KEY,secret=process.env.RAZORPAY_SECRET_KEY;
  if(!url||!dbKey||!keyId||!secret)return Response.json({message:"Payment verification isn't configured."},{status:503});
  let body:unknown;try{body=await request.json();}catch{return Response.json({message:"Invalid payment response."},{status:400});}
  const p=schema.safeParse(body);if(!p.success)return Response.json({message:"Invalid payment response."},{status:400});
