@@ -6,6 +6,7 @@ function normalizeWebsite(raw:string):string|null{try{const u=new URL(/^https?:\
 export async function POST(request:Request){
  const url=process.env.SUPABASE_URL_FIRST, dbKey=process.env.SUPABASE_SECRET_KEY1, keyId=process.env.RAZORPAY_KEY_ID, secret=process.env.RAZORPAY_KEY_SECRET;
  const missing:string[]=[]; if(!url)missing.push("SUPABASE_URL_FIRST"); if(!dbKey)missing.push("SUPABASE_SECRET_KEY1"); if(!keyId)missing.push("RAZORPAY_KEY_ID"); if(!secret)missing.push("RAZORPAY_KEY_SECRET"); if(missing.length)return Response.json({message:`Checkout configuration is missing: ${missing.join(", ")}. Check Vercel Production variables and redeploy.`},{status:503});
+ if(!url||!dbKey||!keyId||!secret)return Response.json({message:"Checkout configuration is incomplete."},{status:503});
  let body:unknown;try{body=await request.json();}catch{return Response.json({message:"Enter your company name and website."},{status:400});}
  const p=schema.safeParse(body);if(!p.success)return Response.json({message:"Enter a company name and website URL."},{status:400});
  const website=normalizeWebsite(p.data.website);if(!website)return Response.json({message:"Enter a valid public HTTPS website URL."},{status:400});
